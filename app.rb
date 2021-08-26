@@ -4,15 +4,13 @@ Bundler.require
 def saml_settings
   settings = OneLogin::RubySaml::Settings.new
 
-  url_base ||= "https://localhost:3000"
-
   # When disabled, saml validation errors will raise an exception.
   # settings.soft = true
 
   #SP section
-  settings.sp_entity_id                   = url_base + "/saml/metadata"
-  settings.assertion_consumer_service_url = url_base + "/saml/acs"
-  settings.assertion_consumer_logout_service_url = url_base + "/saml/logout"
+  settings.sp_entity_id                   = ENV['URL_BASE'] + "/saml/metadata"
+  settings.assertion_consumer_service_url = ENV['URL_BASE'] + "/saml/acs"
+  settings.assertion_consumer_logout_service_url = ENV['URL_BASE'] + "/saml/logout"
 
   # IdP section
   settings.idp_entity_id                  = "https://sts.windows.net/#{ENV['MICROSOFT_APP_ID']}/"
